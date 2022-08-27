@@ -1,3 +1,6 @@
+add_newline=true
+command_timeout=3000 #ms
+
 [aws]
 disabled = true
 
