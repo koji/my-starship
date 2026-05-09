@@ -68,7 +68,7 @@ deleted = "🗑"
 # 言語・ツール 関連
 # ---------------------------------------------------
 [rust]
-format = "via [⚙️ $version](red bold) "
+format = "via [🦀 $version](red bold) "
 
 [python]
 pyenv_version_name = true
