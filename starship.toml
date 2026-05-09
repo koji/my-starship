@@ -1,19 +1,50 @@
-add_newline=true
-command_timeout=3000 #ms
+# ---------------------------------------------------
+# トップレベルの設定
+# ---------------------------------------------------
+add_newline = true
+command_timeout = 3000 #ms
 
-[aws]
-disabled = true
+# 全体のレイアウトを明示的に定義
+format = """
+$username$directory$git_branch$git_commit$git_status$rust$python$nodejs
+$character"""
 
+# 時間を右プロンプトに配置して入力スペースを確保
+right_format = """$time"""
+
+# ---------------------------------------------------
+# プロンプトの基本設定
+# ---------------------------------------------------
 [character]
 format = "❯❯ "
 success_symbol = "❯❯(bold green) "
 error_symbol = "❯❯(bold red) "
+
+[username]
+style_root = "green bold"
+format = "😈 [$user]($style) "
+disabled = false
+show_always = true
 
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style) "
 truncation_length = 4
 truncate_to_repo = false
 truncation_symbol = "…/"
+
+[time]
+disabled = false
+time_format = "%Y-%m-%d %H:%M"
+utc_time_offset = "local"
+
+# ---------------------------------------------------
+# Git 関連
+# ---------------------------------------------------
+[git_branch]
+symbol = '🌱 '
+truncation_length = 30 # 長すぎるブランチ名で圧迫されないように調整
+truncation_symbol = "…"
+style="bold purple"
 
 [git_commit]
 commit_hash_length = 6
@@ -33,35 +64,27 @@ staged = '🔦'
 renamed = "🏷"
 deleted = "🗑"
 
-[hostname]
-disabled = true
-
-# Disable the package module, hiding it from the prompt completely
-[package]
-disabled = true
-
-[time]
-disabled = false
-time_format = "%Y-%m-%d %H:%M"
-utc_time_offset = "local"
-
-[username]
-style_root = "green bold"
-format = "😈 [$user]($style) "
-disabled = false
-show_always = true
-
-[git_branch]
-symbol = '🌱 '
-truncation_length = 150
-truncation_symbol = "…"
-style="bold purple"
-
+# ---------------------------------------------------
+# 言語・ツール 関連
+# ---------------------------------------------------
 [rust]
-format = "via [⚙️ $version](red bold)"
+format = "via [⚙️ $version](red bold) "
 
 [python]
 pyenv_version_name = true
+format = "via [🐍 $version](bold yellow) " # 他の言語とデザインを統一
 
 [nodejs]
 format = "via [🤖 $version](bold green) "
+
+# ---------------------------------------------------
+# 無効化するモジュール
+# ---------------------------------------------------
+[aws]
+disabled = true
+
+[hostname]
+disabled = true
+
+[package]
+disabled = true
