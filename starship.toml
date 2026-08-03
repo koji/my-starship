@@ -6,7 +6,7 @@ command_timeout = 3000 #ms
 
 # 全体のレイアウトを明示的に定義
 format = """
-$username$directory$git_branch$git_commit$git_status$rust$python$nodejs
+$sudo$username$directory$git_branch$git_commit$git_status$rust$python$nodejs$bun$docker_context$cmd_duration
 $character"""
 
 # 時間を右プロンプトに配置して入力スペースを確保
@@ -26,6 +26,12 @@ format = "😈 [$user]($style) "
 disabled = false
 show_always = true
 
+[sudo]
+disabled = false
+symbol = "🧙 "
+format = "[$symbol]($style)"
+style = "bold red"
+
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style) "
 truncation_length = 4
@@ -36,6 +42,11 @@ truncation_symbol = "…/"
 disabled = false
 time_format = "%Y-%m-%d %H:%M"
 utc_time_offset = "local"
+
+[cmd_duration]
+min_time = 2_000 # 2秒以上かかったコマンドの実行時間を表示
+format = "took [$duration]($style) "
+style = "yellow bold"
 
 # ---------------------------------------------------
 # Git 関連
@@ -76,6 +87,15 @@ format = "via [🐍 $version](bold yellow) " # 他の言語とデザインを統
 
 [nodejs]
 format = "via [🤖 $version](bold green) "
+
+[bun]
+format = "via [🥟 $version](bold light_yellow) "
+
+[docker_context]
+symbol = "🐳 "
+format = "via [$symbol$context]($style) "
+style = "blue bold"
+only_with_files = true # Dockerfileやdocker-compose.ymlがある時のみ表示
 
 # ---------------------------------------------------
 # 無効化するモジュール
